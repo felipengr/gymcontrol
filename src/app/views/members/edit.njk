@@ -1,0 +1,35 @@
+{% extends 'layout.njk' %}
+
+{% block content %}
+
+  <div class="card">
+    <section class="avatar" style="background: url({{member.avatar_url}}) no-repeat center / cover "></section>
+
+    <section class="details">
+      <h3>Editar Aluno</h3>
+
+      {% include 'members/fields.njk' %}
+
+      <input type="hidden" name="id" value="{{member.id}}">
+
+      <form method="POST" action="/members?_method=PUT"></form>
+
+      <form id="form-delete" action="/members?_method=DELETE" method="post">
+        <input type="hidden" name="id" value="{{member.id}}">
+        <button type="submit">Deletar</button>
+      </form>
+
+      <script>
+        const formDelete = document.querySelector("#form-delete")
+        formDelete.addEventListener("submit", function (event) {
+          confirm("Deseja Deletar?")
+          if (!confirmation) {
+            event.preventDefault()
+          }
+        })
+      </script>
+    </section>
+
+  </div>
+
+{% endblock content %}
